@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 import gsap from 'gsap'
 
@@ -12,6 +12,12 @@ import { ButtonLink } from './elements/button-link'
 export default function Home() {
   const textRef = useRef(null)
 
+  const [ chatWebModal, setChatWebModal ] = useState(false)
+
+  function ToggleChatWebModal() {
+    setChatWebModal(prev => !prev)
+  }
+ 
   useEffect(() => {
     const elements = textRef.current.children
 
@@ -41,10 +47,10 @@ export default function Home() {
       </header>
       <main className='flex-1 m-auto space-y-12'>
         <div className='flex flex-col gap-12 mt-12'>
-          <div ref={textRef} className='space-y-3'>
+          <div ref={textRef} className='space-y-3 mt-16'>
             <h4 className='text-xl text-center'>Tame the chaos in seconds</h4>
             <p className='text-justify'>Neatly’s AI bot sorts your to-dos, reminders, and errands—so you don’t have to. Fewer clicks, zero mess.</p>
-            <h3 className='text-2xl text-center'>Tap. Sort. Done.</h3>
+            <h3 className='text-2xl tracking-widest text-center'>Tap. Sort. Done.</h3>
           </div>
           <div className='flex gap-3 justify-center'>
           <ButtonLink
@@ -85,11 +91,23 @@ export default function Home() {
           </div>
          
         </div>
-        <div>
-          <button>Try it Now!</button>
+        <div className='px-16'>
+          <ButtonLink href={'#'} onClick={ToggleChatWebModal}>Try it Now!</ButtonLink>
         </div>
+
+        { chatWebModal && (
+          <div className='fixed inset-0 flex bg-neutral-950/50'>
+            <div className='min-w-96 h-126 m-auto bg-neutral-800'>
+              <button
+                onClick={ToggleChatWebModal}
+              >
+                X
+              </button>
+            </div>
+          </div>
+        )}
       </main>
-      <footer className='h-12 text-center'>
+      <footer className='h-8 text-center'>
         <span>Neatly: Tap. Sort. Live Better.</span>
       </footer>
     </div>

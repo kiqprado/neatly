@@ -3,7 +3,6 @@ import { tv, VariantProps } from 'tailwind-variants'
 
 import Link from 'next/link'
 
-
 interface IButtonLink extends ComponentProps<'a'>,
 VariantProps<typeof ButtonVariants>{
   children: ReactNode
@@ -11,7 +10,7 @@ VariantProps<typeof ButtonVariants>{
 
 const ButtonVariants = tv({
   base: [
-    'min-w-52 flex items-center gap-3 pl-1.5 pr-3 relative overflow-hidden',
+    'min-w-52 flex items-center gap-3 px-1.5 relative overflow-hidden',
     'border border-transparent rounded-2xl shadow-lg hover:shadow-lg',
     'transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]',
     'transform hover:scale-105 hover:-translate-y-1',
@@ -32,7 +31,7 @@ const ButtonVariants = tv({
       wpp: 'bg-emerald-400/20 hover:bg-emerald-300/70 hover:shadow-emerald-400/30',
       tel: 'bg-sky-400/20 hover:bg-sky-300/70 hover:shadow-sky-400/30',
       dis: 'bg-violet-400/20 hover:bg-violet-300/70 hover:shadow-violet-400/30',
-      dft: 'bg-transparent hover:shadow-white/20'
+      dft: 'justify-center py-1.5 bg-transparent hover:shadow-white/20'
     }
   },
   defaultVariants: {
