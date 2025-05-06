@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+:root {
+  --font-orbitron: "Orbitron", sans-serif;
+  --font-exo-2: "Exo 2", sans-serif
+}
+
 body {
-  font-family: "Exo 2", sans-serif;
+  font-family: var(--font-exo-2);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-orbitron);
+}
+
+@keyframes flash {
+  0% { filter: brightness(100%); }
+  50% { filter: brightness(50%); }
+  100% { filter: brightness(100%); }
+}
+
+.flash-animation {
+  animation: flash 0.3s ease-out;
 }

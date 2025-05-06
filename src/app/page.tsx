@@ -6,11 +6,14 @@ import gsap from 'gsap'
 
 import Image from 'next/image'
 
-//import { SplashScreen } from './pages/splash-screen'
+import WebChatPage from './pages/[webchat]/page'
+import { Button } from './elements/button'
 import { ButtonLink } from './elements/button-link'
 
+import { Footer } from './components/footer'
+
 export default function Home() {
-  const textRef = useRef(null)
+  //const textRef = useRef(null)
 
   const [ chatWebModal, setChatWebModal ] = useState(false)
 
@@ -18,7 +21,7 @@ export default function Home() {
     setChatWebModal(prev => !prev)
   }
  
-  useEffect(() => {
+  /*useEffect(() => {
     const elements = textRef.current.children
 
     gsap.from(elements, {
@@ -27,7 +30,7 @@ export default function Home() {
       duration: 1,
       ease: 'power3.inOut'
     })
-  }, [])
+  }, [])*/
   return (
     <div className='h-screen flex flex-col'>
       <header className='h-16 flex items-center justify-center'>
@@ -37,23 +40,22 @@ export default function Home() {
           width={46}
           height={46}
         />
-        <h2 className='text-center'>Neatly</h2>
-        <Image
-          src={'/logo-light-mode.png'}
-          alt={`Logo Application`}
-          width={46}
-          height={46}
-        />
+        <h2 className='text-center text-2xl tracking-widest hover:text-zinc-50 transition-all duration-300 ease-in-out'>Neatly</h2>
       </header>
       <main className='flex-1 m-auto space-y-12'>
-        <div className='flex flex-col gap-12 mt-12'>
-          <div ref={textRef} className='space-y-3 mt-16'>
-            <h4 className='text-xl text-center'>Tame the chaos in seconds</h4>
+        <div className='flex flex-col gap-12'>
+          <div className='flex flex-col items-center gap-3 mt-16'>
+            <h4 className='text-xl text-center tracking-wide'>Tame the chaos in seconds</h4>
             <p className='text-justify'>Neatly’s AI bot sorts your to-dos, reminders, and errands—so you don’t have to. Fewer clicks, zero mess.</p>
-            <h3 className='text-2xl tracking-widest text-center'>Tap. Sort. Done.</h3>
+            <h3 className=' text-2xl tracking-widest text-center mb-12'>Tap. Sort. Done.</h3>
+            <Button>
+              Learn how to use
+            </Button>
           </div>
+
           <div className='flex gap-3 justify-center'>
           <ButtonLink
+            href={'#'}
             colors='wpp'
           >
             <Image
@@ -66,6 +68,7 @@ export default function Home() {
           </ButtonLink>
   
           <ButtonLink
+            href={'#'}
             colors='tel'
           >
             <Image
@@ -78,6 +81,7 @@ export default function Home() {
           </ButtonLink>
 
           <ButtonLink
+            href={'#'}
             colors='dis'
           >
             <Image
@@ -93,14 +97,13 @@ export default function Home() {
         </div>
         <div className='px-16 mt-26 flex justify-center'>
           <ButtonLink 
-            href={'#'} 
-            onClick={ToggleChatWebModal}
+            href={`/pages/webchat`} 
           >
             <Image
               src={'/logo-dark-mode.png'}
               alt='App logo Image'
-              width={66}
-              height={66}
+              width={46}
+              height={46}
             />
             <span>Try it Now!</span>
           </ButtonLink>
@@ -108,7 +111,7 @@ export default function Home() {
 
         { chatWebModal && (
           <div className='fixed inset-0 flex bg-neutral-950/50'>
-            <div className='min-w-96 h-126 m-auto bg-neutral-800'>
+            <div className='min-w-96 h-126 m-auto bg-neutral-900'>
               <button
                 onClick={ToggleChatWebModal}
               >
@@ -118,9 +121,7 @@ export default function Home() {
           </div>
         )}
       </main>
-      <footer className='h-8 text-center'>
-        <span>Neatly: Tap. Sort. Live Better.</span>
-      </footer>
+      <Footer/>
     </div>
   );
 }
