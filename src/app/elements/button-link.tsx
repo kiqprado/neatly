@@ -1,11 +1,12 @@
-import { ReactNode, ComponentProps } from 'react'
+import { ReactNode } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
-import Link from 'next/link'
+import Link, { LinkProps } from 'next/link'
 
-interface IButtonLink extends ComponentProps<'a'>,
+interface IButtonLink extends Omit<LinkProps, 'href'>,
 VariantProps<typeof ButtonVariants>{
   children: ReactNode
+  href: LinkProps['href']
 }
 
 const ButtonVariants = tv({
@@ -31,7 +32,7 @@ const ButtonVariants = tv({
       wpp: 'bg-emerald-400/20 hover:bg-emerald-300/70 hover:shadow-emerald-400/30',
       tel: 'bg-sky-400/20 hover:bg-sky-300/70 hover:shadow-sky-400/30',
       dis: 'bg-violet-400/20 hover:bg-violet-300/70 hover:shadow-violet-400/30',
-      dft: 'w-fit gap-6 bg-transparent hover:shadow-white/20'
+      dft: 'w-fit justify-evenly bg-transparent hover:shadow-white/20'
     }
   },
   defaultVariants: {
@@ -39,11 +40,11 @@ const ButtonVariants = tv({
   }
 })
 
-export function ButtonLink({ children, colors, ...props }: IButtonLink) {
+export function ButtonLink({ href, children, colors, ...props }: IButtonLink) {
   return (
     <Link
       {...props}
-      href={'#'}
+      href={href}
       className={ButtonVariants({ colors })}
     >
       {children}
