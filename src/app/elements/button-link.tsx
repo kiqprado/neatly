@@ -31,7 +31,7 @@ const ButtonVariants = tv({
       wpp: 'bg-emerald-400/20 hover:bg-emerald-300/70 hover:shadow-emerald-400/30',
       tel: 'bg-sky-400/20 hover:bg-sky-300/70 hover:shadow-sky-400/30',
       dis: 'bg-violet-400/20 hover:bg-violet-300/70 hover:shadow-violet-400/30',
-      dft: 'justify-center py-1.5 bg-transparent hover:shadow-white/20'
+      dft: 'w-fit gap-6 bg-transparent hover:shadow-white/20'
     }
   },
   defaultVariants: {

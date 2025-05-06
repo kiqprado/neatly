@@ -91,8 +91,19 @@ export default function Home() {
           </div>
          
         </div>
-        <div className='px-16'>
-          <ButtonLink href={'#'} onClick={ToggleChatWebModal}>Try it Now!</ButtonLink>
+        <div className='px-16 mt-26 flex justify-center'>
+          <ButtonLink 
+            href={'#'} 
+            onClick={ToggleChatWebModal}
+          >
+            <Image
+              src={'/logo-dark-mode.png'}
+              alt='App logo Image'
+              width={66}
+              height={66}
+            />
+            <span>Try it Now!</span>
+          </ButtonLink>
         </div>
 
         { chatWebModal && (
