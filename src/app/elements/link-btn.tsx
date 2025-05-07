@@ -1,12 +1,15 @@
-import { ComponentProps, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
-interface IButton extends ComponentProps<'button'>,
- VariantProps<typeof ButtonVariants>{
+import Link, { LinkProps} from 'next/link'
+
+interface ILinkBtn extends Omit<LinkProps, 'href'>,
+ VariantProps<typeof LinkBtnVariants>{
   children: ReactNode
+  href: LinkProps['href']
 }
 
-const ButtonVariants = tv({
+const LinkBtnVariants = tv({
   base: [
     'px-6 py-1.5 text-center tracking-wide relative overflow-hidden',
     'border border-transparent rounded-2xl shadow-lg hover:shadow-lg',
@@ -35,13 +38,14 @@ const ButtonVariants = tv({
   }
 })
 
-export function Button({ children, size, ...props }: IButton) {
+export function LinkBtn({ href, children, size, ...props }: ILinkBtn) {
   return (
-    <button
+    <Link
       {...props}
-      className={ButtonVariants({ size })}
+      href={href}
+      className={LinkBtnVariants({ size })}
     >
       {children}
-    </button>
+    </Link>
   )
 }
