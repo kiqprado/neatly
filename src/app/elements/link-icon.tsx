@@ -3,13 +3,13 @@ import { tv, type VariantProps} from 'tailwind-variants'
 
 import Link, { LinkProps } from 'next/link'
 
-interface IButtonLink extends Omit<LinkProps, 'href'>,
-VariantProps<typeof ButtonIconVariants> {
+interface ILinkIcon extends Omit<LinkProps, 'href'>,
+VariantProps<typeof LinkIconVariants> {
   children: ReactNode
   href: LinkProps['href']
 }
 
-const ButtonIconVariants = tv({
+const LinkIconVariants = tv({
   base: [
     'absolute top-0 right-0 z-10',
     'transition-all duration-200 ease-in-out',
@@ -34,12 +34,12 @@ const ButtonIconVariants = tv({
   }
 });
 
-export function ButtonIcon({ href, children, variant, ...props }: IButtonLink) {
+export function LinkIcon({ href, children, variant, ...props }: ILinkIcon) {
   return (
     <Link
       {...props}
       href={href}
-      className={ButtonIconVariants({ variant })}
+      className={LinkIconVariants({ variant })}
     >
       {children}
     </Link>

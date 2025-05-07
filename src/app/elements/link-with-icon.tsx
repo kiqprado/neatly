@@ -3,13 +3,13 @@ import { tv, VariantProps } from 'tailwind-variants'
 
 import Link, { LinkProps } from 'next/link'
 
-interface IButtonLink extends Omit<LinkProps, 'href'>,
-VariantProps<typeof ButtonVariants>{
+interface ILinkWithIcon extends Omit<LinkProps, 'href'>,
+VariantProps<typeof LinkWithIconVariants>{
   children: ReactNode
   href: LinkProps['href']
 }
 
-const ButtonVariants = tv({
+const LinkWithIconVariants = tv({
   base: [
     'min-w-52 flex items-center gap-3 px-1.5 relative overflow-hidden',
     'border border-transparent rounded-2xl shadow-lg hover:shadow-lg',
@@ -40,12 +40,12 @@ const ButtonVariants = tv({
   }
 })
 
-export function ButtonLink({ href, children, colors, ...props }: IButtonLink) {
+export function LinkWithIcon({ href, children, colors, ...props }: ILinkWithIcon) {
   return (
     <Link
       {...props}
       href={href}
-      className={ButtonVariants({ colors })}
+      className={LinkWithIconVariants({ colors })}
     >
       {children}
     </Link>

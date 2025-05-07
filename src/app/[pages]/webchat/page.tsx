@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { ButtonIcon } from '@/app/elements/button-icon'
+import { LinkIcon } from '@/app/elements/link-icon'
 
 interface IWebChatPage {
   params: string
@@ -10,7 +10,7 @@ export default function WebChatPage({ params }: IWebChatPage) {
   return (
     <div className='h-screen inset-0 flex bg-neutral-950/50'>
       <div className='m-auto h-[93%] w-[36%] px-3 py-2 relative rounded-md border bg-neutral-900'>
-        <ButtonIcon
+        <LinkIcon
           href={'/'}
         >
           <Image
@@ -19,7 +19,7 @@ export default function WebChatPage({ params }: IWebChatPage) {
             width={26}
             height={26}
           />
-        </ButtonIcon>
+        </LinkIcon>
         <div 
           className='h-full relative bg-center bg-no-repeat bg-cover border brightness-75 rounded-md'
           style={{ backgroundImage: "url('/bg-chat.jpg')"}}

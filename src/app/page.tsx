@@ -1,14 +1,10 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
-
-import gsap from 'gsap'
+import { useState } from 'react'
 
 import Image from 'next/image'
 
-import WebChatPage from './pages/[webchat]/page'
-import { Button } from './elements/button'
-import { ButtonLink } from './elements/button-link'
+import { LinkWithIcon } from './elements/link-with-icon'
 
 import { Footer } from './components/footer'
 
@@ -48,13 +44,15 @@ export default function Home() {
             <h4 className='text-xl text-center tracking-wide'>Tame the chaos in seconds</h4>
             <p className='text-justify'>Neatly’s AI bot sorts your to-dos, reminders, and errands—so you don’t have to. Fewer clicks, zero mess.</p>
             <h3 className=' text-2xl tracking-widest text-center mb-12'>Tap. Sort. Done.</h3>
-            <Button>
+            <LinkWithIcon
+              href={'/pages/usage'}
+            >
               Learn how to use
-            </Button>
+            </LinkWithIcon>
           </div>
 
           <div className='flex gap-3 justify-center'>
-          <ButtonLink
+          <LinkWithIcon
             href={'#'}
             colors='wpp'
           >
@@ -65,9 +63,9 @@ export default function Home() {
               height={66}
             />
             <span>WhatsApp Bot</span>
-          </ButtonLink>
+          </LinkWithIcon>
   
-          <ButtonLink
+          <LinkWithIcon
             href={'#'}
             colors='tel'
           >
@@ -78,9 +76,9 @@ export default function Home() {
               height={66}
             />
             <span>Telegram Bot</span>
-          </ButtonLink>
+          </LinkWithIcon>
 
-          <ButtonLink
+          <LinkWithIcon
             href={'#'}
             colors='dis'
           >
@@ -91,12 +89,12 @@ export default function Home() {
               height={66}
             />
             <span>Discord Bot</span>
-          </ButtonLink>
+          </LinkWithIcon>
           </div>
          
         </div>
         <div className='px-16 mt-26 flex justify-center'>
-          <ButtonLink 
+          <LinkWithIcon 
             href={`/pages/webchat`} 
           >
             <Image
@@ -106,7 +104,7 @@ export default function Home() {
               height={46}
             />
             <span>Try it Now!</span>
-          </ButtonLink>
+          </LinkWithIcon>
         </div>
 
         { chatWebModal && (
