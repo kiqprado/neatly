@@ -4,6 +4,8 @@ import { useState } from 'react'
 
 import Image from 'next/image'
 
+import { useMediaRange } from './utils/breakpoint-hook'
+
 import { LinkWithIcon } from './elements/link-with-icon'
 
 import { Footer } from './components/footer'
@@ -12,6 +14,16 @@ export default function Home() {
   //const textRef = useRef(null)
 
   const [ chatWebModal, setChatWebModal ] = useState(false)
+
+  //Query's
+  const isMobileSM = useMediaRange('mobileSM')
+  const isMobileMD = useMediaRange('mobileMD')
+  const isMobileLG = useMediaRange('mobileLG')
+  const isTabletMD = useMediaRange('tabletMD')
+  const isTabletLG = useMediaRange('tabletLG')
+  
+  const mobileRangeFull = isMobileSM || isMobileMD || isMobileLG
+  const tabletRangeFull = isTabletMD || isTabletLG
 
   function ToggleChatWebModal() {
     setChatWebModal(prev => !prev)
@@ -28,8 +40,8 @@ export default function Home() {
     })
   }, [])*/
   return (
-    <div className='h-screen flex flex-col'>
-      <header className='h-16 flex items-center justify-center'>
+    <div className={`h-screen flex flex-col ${mobileRangeFull || tabletRangeFull ? 'px-6' : ''}`}>
+      <header className='h-16 w-full flex items-center justify-center gap-1'>
         <Image
           src={'/logo-dark-mode.png'}
           alt={`Logo Application`}
@@ -38,20 +50,25 @@ export default function Home() {
         />
         <h2 className='text-center text-2xl tracking-widest hover:text-zinc-50 transition-all duration-300 ease-in-out'>Neatly</h2>
       </header>
-      <main className='flex-1 m-auto space-y-12'>
-        <div className='flex flex-col gap-12'>
-          <div className='flex flex-col items-center gap-3 mt-16'>
-            <h4 className='text-xl text-center tracking-wide'>Tame the chaos in seconds</h4>
-            <p className='text-justify'>Neatly’s AI bot sorts your to-dos, reminders, and errands—so you don’t have to. Fewer clicks, zero mess.</p>
-            <h3 className=' text-2xl tracking-widest text-center mb-12'>Tap. Sort. Done.</h3>
-            <LinkWithIcon
-              href={'/pages/usage'}
-            >
-              Learn how to use
-            </LinkWithIcon>
-          </div>
-
-          <div className='flex gap-3 justify-center'>
+      <main className={`flex-1 flex flex-col ${mobileRangeFull ? 'gap-16' : 'gap-12'} items-center`}>
+        <div className={`flex flex-col gap-3 items-center ${mobileRangeFull ? 'mt-30' : 'mt-36'}`}>
+          <h3 className={`${mobileRangeFull ? 'hidden' : 'block'} text-xl tracking-wide`}>Tame the chaos in seconds</h3>
+          <p 
+            className={`text-center ${mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md'}`}
+          >
+            Neatly’s AI bot sorts your to-dos, reminders, and errands—so you don’t have to. Fewer clicks, zero mess.
+          </p>
+          <h2 className='text-2xl tracking-widest text-center mb-6'>Tap. Sort. Done.</h2>
+          <LinkWithIcon
+            href={'/pages/usage'}
+          >
+            Learn how to use
+          </LinkWithIcon>
+        </div>
+        
+        <div 
+          className={`flex ${mobileRangeFull || tabletRangeFull ? 'flex-col' : 'flex-row'} gap-3 justify-center`}
+        >
           <LinkWithIcon
             href={'#'}
             colors='wpp'
@@ -62,7 +79,7 @@ export default function Home() {
               width={66}
               height={66}
             />
-            <span>WhatsApp Bot</span>
+            <span className={`${mobileRangeFull ? 'text-lg' : 'text-md'}`}>WhatsApp Bot</span>
           </LinkWithIcon>
   
           <LinkWithIcon
@@ -75,7 +92,7 @@ export default function Home() {
               width={66}
               height={66}
             />
-            <span>Telegram Bot</span>
+            <span className={`${mobileRangeFull ? 'text-lg' : 'text-md'}`}>Telegram Bot</span>
           </LinkWithIcon>
 
           <LinkWithIcon
@@ -88,12 +105,11 @@ export default function Home() {
               width={66}
               height={66}
             />
-            <span>Discord Bot</span>
+            <span className={`${mobileRangeFull ? 'text-lg' : 'text-md'}`}>Discord Bot</span>
           </LinkWithIcon>
-          </div>
-         
         </div>
-        <div className='px-16 mt-26 flex justify-center'>
+        
+        <div className='flex justify-center'>
           <LinkWithIcon 
             href={`/pages/webchat`} 
           >

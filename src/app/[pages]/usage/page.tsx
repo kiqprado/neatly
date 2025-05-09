@@ -1,9 +1,14 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+
 import Link from 'next/link'
+
+import { useMediaRange } from '@/app/utils/breakpoint-hook'
+
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 import { LinkBtn } from '@/app/elements/link-btn'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -17,6 +22,16 @@ export default function Usage({ params }: IUsage) {
   const dividersRefs = useRef<(HTMLDivElement | null)[]>([])
   const titleRefs = useRef<(HTMLHeadingElement | null)[]>([])
   const textRefs = useRef<(HTMLParagraphElement | HTMLLIElement | null)[]>([])
+
+  //Query's
+const isMobileSM = useMediaRange('mobileSM')
+const isMobileMD = useMediaRange('mobileMD')
+const isMobileLG = useMediaRange('mobileLG')
+const isTabletMD = useMediaRange('tabletMD')
+const isTabletLG = useMediaRange('tabletLG')
+
+const mobileRangeFull = isMobileSM || isMobileMD || isMobileLG
+const tabletRangeFull = isTabletMD || isTabletLG
 
   useEffect(() => {
     ScrollTrigger.defaults({
@@ -115,28 +130,33 @@ export default function Usage({ params }: IUsage) {
   }
 
   return (
-    <div className='h-screen px-12 space-y-9'>
+    <div className={`h-screen space-y-9 ${mobileRangeFull ? 'px-6' : 'px-24'}`}>
       <div 
         ref={ref => addToRefs(ref, sectionRefs)}
-        className='h-full flex flex-col items-center justify-center gap-3 text-center my-3'
+        className={`h-full flex flex-col items-center justify-center`}
       >
         <h1 
           ref={ref => addToRefs(ref, titleRefs)}
-          className='font-bold tracking-widest text-4xl'
+          className={`w-full text-center font-bold tracking-widest 
+            ${(mobileRangeFull || tabletRangeFull) ? 'text-6xl' : 'text-5xl'}`
+          }
         >
-          Neatl<span className='hover:text-emerald-300 transition-all duration-700 ease-in-out cursor-grab'>y</span>
+          Neatl<span className='leading-none hover:text-emerald-300 transition-all duration-700 ease-in-out cursor-grab'>y</span>
         </h1>
-        <h2 
+        <div className='space-y-6'>
+          <h2 
           ref={ref => addToRefs(ref, titleRefs)}
-          className='tracking-widest text-xl'
+          className={`mt-16 tracking-widest text-lg text-center`}
         >
-          Your Smart List Organizer</h2>
+          Your Smart List Organizer
+        </h2>
         <span 
           ref={ref => addToRefs(ref, textRefs)}
-          className='tracking-wider'
+          className='tracking-wider text-center'
         >
           The Cross-Platform Productivity Assistant That Feels Like a Friend
-        </span>
+        </span> 
+        </div>
       </div>
 
       <div 
@@ -145,34 +165,46 @@ export default function Usage({ params }: IUsage) {
       >
         <h2 
           ref={ref => addToRefs(ref, titleRefs)}
-          className='tracking-widest text-2xl text-center'
+          className='tracking-widest text-3xl text-center'
         >
           Introduction
         </h2>
         <p 
           ref={ref => addToRefs(ref, textRefs)}
-          className='max-w-[50%] text-justify tracking-wide py-3'
+          className={`${mobileRangeFull || tabletRangeFull ? 'w-full text-lg' : 'max-w-[50%]'} text-justify tracking-wide py-3`}
         >
           <strong>Neatly</strong> is your AI-powered list organizer, designed to simplify shopping, task management, and daily planning. Whether you&apos;re managing groceries, work tasks, or personal goals, Neatly ensures <strong>clarity</strong>, <strong>efficiency</strong>, and <strong>smart</strong> suggestions—acting less like a tool and more like a <strong>productivity partner</strong>.
         </p>
         <h3 
             ref={ref => addToRefs(ref, titleRefs)}
-            className='text-center text-lg tracking-wider'
+            className={`${mobileRangeFull || tabletRangeFull ? 'text-2xl' : 'text-lg'} text-center  tracking-wider`}
           >
             Why Neatly?
           </h3>
         <div className='flex flex-col items-end'>
-          <ul className='max-w-[50%] text-justify space-y-3'>
-            <li ref={ref => addToRefs(ref, textRefs)}>
-              <strong>Cross-Platform Availability</strong> – Use it directly on the web, WhatsApp, Telegram, or Discord—your lists sync seamlessly.
+          <ul className={` ${mobileRangeFull || tabletRangeFull ? 'w-full' : 'max-w-[50%]'} space-y-3`}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md'} text-justify`}
+            >
+              <strong>Cross-Platform Availability</strong> – Use it directly on the web, WhatsApp, Telegram, or Discord your lists sync seamlessly.
             </li>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md'} text-justify`}
+            >
               <strong>AI-Powered Suggestions</strong> – Learns your habits and suggests frequent items, saving time.
             </li>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md'} text-justify`}
+            >
               <strong>Collaborative Lists</strong> – Share and edit lists with family, friends, or coworkers in real time.
             </li>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md'} text-justify`}
+            >
               <strong>Voice & Text Input</strong> – Add items naturally, just like chatting with a friend.
             </li>
           </ul>
@@ -189,22 +221,22 @@ export default function Usage({ params }: IUsage) {
 
       <div 
         ref={ref => addToRefs(ref, sectionRefs)}
-        className='flex flex-col gap-3'
+        className={`flex flex-col ${ mobileRangeFull ? 'gap-8' : 'gap-5'}`}
       >
         <h2 
           ref={ref => addToRefs(ref, titleRefs)}
-          className='tracking-widest text-2xl text-center'
+          className={`tracking-widest text-3xl text-center`}
         >
           How to Use Neatly
         </h2>
         <div className='space-y-5'>
           <h3 
             ref={ref => addToRefs(ref, titleRefs)}
-            className='tracking-wider text-lg mb-3'
+            className={`${mobileRangeFull || tabletRangeFull ? 'text-2xl' : 'text-lg'} text-center  tracking-wider`}
           >
             Getting Started
           </h3>
-          <ul className='space-y-2'>
+          <ul className={`${mobileRangeFull || tabletRangeFull ? 'space-y-3' : 'space-y-2'}`}>
             <h4 
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
@@ -212,17 +244,26 @@ export default function Usage({ params }: IUsage) {
               <strong className='mr-3 text-red-500'>//</strong>
               Web Version (Try It Now!)
             </h4>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
+            >
               Visit Neatly's WebChat (no login required).
             </li>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}  
+            >
               Type or speak your first list (e.g., "Add milk, eggs, and bread to my shopping list").
             </li>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`} 
+            >
               Edit, reorder, or check off items with a click.
             </li>
           </ul>
-          <ul className='space-y-2'>
+          <ul className={`${mobileRangeFull || tabletRangeFull ? 'space-y-3' : 'space-y-2'}`}>
             <h4 
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
@@ -230,10 +271,16 @@ export default function Usage({ params }: IUsage) {
               <strong className='mr-3 text-red-500'>//</strong>
               Mobile/Messaging Apps
             </h4>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`} 
+            >
               <strong>WhatsApp/Telegram/Discord:</strong> Send "Start" to Neatly's bot.
             </li>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}   
+            >
               Follow the prompts to create your first list.
             </li>
           </ul>
@@ -241,11 +288,11 @@ export default function Usage({ params }: IUsage) {
         <div className='space-y-5'>
           <h3 
             ref={ref => addToRefs(ref, titleRefs)}
-            className='tracking-wider text-lg mb-3'  
+            className={`${mobileRangeFull || tabletRangeFull ? 'text-2xl' : 'text-lg'} text-center  tracking-wider`}  
           >
             Key Features
           </h3>
-          <ul className='space-y-2'>
+          <ul className={`${mobileRangeFull || tabletRangeFull ? 'space-y-3' : 'space-y-2'}`}>
             <h4 
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
@@ -253,18 +300,32 @@ export default function Usage({ params }: IUsage) {
               <strong className='mr-3 text-red-500'>//</strong>
               Smart List Creation
             </h4>
-            <h5 ref={ref => addToRefs(ref, titleRefs)}>Natural Language Input:</h5>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <h5 
+              ref={ref => addToRefs(ref, titleRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
+            >
+              Natural Language Input:
+            </h5>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
+            >
               "Add pasta, tomatoes, and cheese to my grocery list."
             </li>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
+            >
               "Remove eggs and add almond milk instead."
             </li>
-            <h5 ref={ref => addToRefs(ref, textRefs)}>
+            <h5 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
+            >
               Auto-Categorization: Groups items by type (e.g., Dairy, Vegetables).
             </h5>
           </ul>
-          <ul className='space-y-2'>
+          <ul className={`${mobileRangeFull || tabletRangeFull ? 'space-y-3' : 'space-y-2'}`}>
             <h4 
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
@@ -272,9 +333,14 @@ export default function Usage({ params }: IUsage) {
               <strong className='mr-3 text-red-500'>//</strong>
               Cross-Platform Sync
             </h4>
-            <h5 ref={ref => addToRefs(ref, titleRefs)}>Start a list on WhatsApp and finish it on the web app—all data stays updated.</h5>
+            <h5 
+              ref={ref => addToRefs(ref, titleRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
+            >
+              Start a list on WhatsApp and finish it on the web app—all data stays updated.
+            </h5>
           </ul>
-          <ul className='space-y-2'>
+          <ul className={`${mobileRangeFull || tabletRangeFull ? 'space-y-3' : 'space-y-2'}`}>
             <h4 
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
@@ -282,10 +348,20 @@ export default function Usage({ params }: IUsage) {
               <strong className='mr-3 text-red-500'>//</strong>
               Reminders & Suggestions
             </h4>
-            <h5 ref={ref => addToRefs(ref, titleRefs)}>"You usually buy bananas on Saturdays—add them now?"</h5>
-            <h5 ref={ref => addToRefs(ref, titleRefs)}>Get alerts for unfinished lists before store visits.</h5>
+            <h5 
+              ref={ref => addToRefs(ref, titleRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}  
+            >
+              "You usually buy bananas on Saturdays—add them now?"
+            </h5>
+            <h5 
+              ref={ref => addToRefs(ref, titleRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
+            >
+              Get alerts for unfinished lists before store visits.
+            </h5>
           </ul>
-          <ul className='space-y-2'>
+          <ul className={`${mobileRangeFull || tabletRangeFull ? 'space-y-3' : 'space-y-2'}`}>
             <h4 
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
@@ -293,25 +369,44 @@ export default function Usage({ params }: IUsage) {
               <strong className='mr-3 text-red-500'>//</strong>
               Shared Lists
             </h4>
-            <h5 ref={ref => addToRefs(ref, titleRefs)}>Invite others via link (web) or chat (WhatsApp/Telegram).</h5>
-            <h5 ref={ref => addToRefs(ref, titleRefs)}>Real-time updates for team shopping or household tasks.</h5>
+            <h5 
+              ref={ref => addToRefs(ref, titleRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}  
+            >
+              Invite others via link (web) or chat (WhatsApp/Telegram).
+            </h5>
+            <h5 
+              ref={ref => addToRefs(ref, titleRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
+            >
+              Real-time updates for team shopping or household tasks.
+            </h5>
           </ul>
         </div>
-        <div>
+        <div className='space-y-5'>
           <h3 
             ref={ref => addToRefs(ref, titleRefs)}
-            className='tracking-wider text-lg mb-3'
+            className={`${mobileRangeFull || tabletRangeFull ? 'text-2xl' : 'text-lg'} text-center  tracking-wider`}
           >
             Pro Tips for Power Users
           </h3>
-          <ul className='space-y-2'>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+          <ul className={`${mobileRangeFull || tabletRangeFull ? 'space-y-3' : 'space-y-2'}`}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
+            >
               <strong>Voice Commands:</strong> "Neatly, add 'dog food' to my Pets list."
             </li>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}  
+            >
               <strong>Shortcuts:</strong> Type "ls" to see all lists, "done [item]" to check off.
             </li>
-            <li ref={ref => addToRefs(ref, textRefs)}>
+            <li 
+              ref={ref => addToRefs(ref, textRefs)}
+              className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}  
+            >
               <strong>Integrations:</strong> Connect to Google Keep/Todoist (coming soon).
             </li>
           </ul>
@@ -332,18 +427,18 @@ export default function Usage({ params }: IUsage) {
       >
         <h2 
           ref={ref => addToRefs(ref, titleRefs)}
-          className='tracking-widest text-2xl text-center'
+          className='tracking-widest text-3xl text-center'
         >
           Why Neatly Feels Like a Friend
         </h2>
-        <div className='w-1/2 flex flex-col gap-3 pl-12'>
+        <div className={`${mobileRangeFull || tabletRangeFull ? 'w-full text-lg' : 'w-1/2 pl-12'} flex flex-col gap-3`}>
           <span 
             ref={ref => addToRefs(ref, textRefs)}
-            className='tracking-wider font-bold'
+            className={`${mobileRangeFull ? 'text-center' : 'text-md'} tracking-wider font-bold`}
           >
             Unlike rigid apps, Neatly adapts to your style:
           </span>
-          <ul className='space-y-3 ml-6'>
+          <ul className={`${mobileRangeFull ? 'space-y-4' : 'space-y-3 ml-6'}`}>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
               className=''
@@ -352,19 +447,24 @@ export default function Usage({ params }: IUsage) {
             </li>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
-              className='ml-3'
+              className={`${mobileRangeFull ? 'ml-0': 'ml-3'} text-justify`}
             >
-              Suggests alternatives ("Out of quinoa? Try couscous!").
+              { mobileRangeFull ? (
+                  <span>Suggests alternatives - <br/> ("Out of quinoa? Try couscous!").</span>
+                ) : (
+                  <span>Suggests alternatives ("Out of quinoa? Try couscous!").</span>
+                )
+              }
+              
             </li>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
-              className='ml-6'  
+              className={`${mobileRangeFull ? 'ml-0': 'ml-6'} text-justify`} 
             >
               Works where you do—no app switching.
             </li>
           </ul>
-        </div>
-        
+        </div> 
       </div>
 
       <div 
@@ -373,24 +473,31 @@ export default function Usage({ params }: IUsage) {
       >
         <h2 
           ref={ref => addToRefs(ref, titleRefs)}
-          className='tracking-widest text-2xl text-center'
+          className='tracking-widest text-3xl text-center'
         >
           Start Organizing Smarter
         </h2>
         <div 
-          className='w-[50%] flex flex-col gap-3 self-end'
+          className={`${mobileRangeFull || tabletRangeFull ? 'w-full text-lg space-y-4' : 'w-1/2 self-end'} flex flex-col gap-3`}
         >
-        <span ref={ref => addToRefs(ref, textRefs)} className='text-center'>
-          <strong>Web Users:</strong> Click <Link href={'#'}>Try It Now</Link> to start instantly.
+        <span 
+          ref={ref => addToRefs(ref, textRefs)} 
+          className={`${mobileRangeFull ? 'tracking-widest' : 'text-center'}`}>
+          <strong>Web Users:</strong> Click <Link href={'#'} className='text-sky-600 hover:text-sky-400 brightness-125 transition-all duration-300 ease-in-out'>Try It Now</Link> to start instantly.
         </span>
-        <span ref={ref => addToRefs(ref, textRefs)} className='text-center'>
+        <span 
+          ref={ref => addToRefs(ref, textRefs)}
+          className={`${mobileRangeFull ? 'tracking-widest' : 'text-center'}`}
+        >
           <strong>Mobile Users:</strong> Message Neatly on <Link href={'#'}>WhatsApp</Link>, <Link href={'#'}>Telegram</Link>, or <Link href={'#'}>Discord</Link>.
         </span>
-        <span ref={ref => addToRefs(ref, textRefs)} className='text-center'>
+        <span 
+          ref={ref => addToRefs(ref, textRefs)} 
+          className={`text-center tracking-wide`}
+        >
           Your lists, your rules—Neatly just makes them effortless.
         </span>
-        </div>
-        
+        </div> 
       </div>
 
       <div 
@@ -399,11 +506,11 @@ export default function Usage({ params }: IUsage) {
       >
         <h3 
           ref={ref => addToRefs(ref, titleRefs)}
-          className='tracking-wider text-lg text-center'
+          className={`${mobileRangeFull || tabletRangeFull ? 'text-2xl' : 'text-lg'} text-center  tracking-wider`}
         >
           Design Notes for Your Page
         </h3>
-        <ul className='space-y-2 text-center mb-6'>
+        <ul className={`text-center ${ mobileRangeFull || tabletRangeFull ? 'space-y-5 text-lg' : 'space-y-2'} mb-6`}>
           <li ref={ref => addToRefs(ref, textRefs)}>
             Use <strong>icons</strong> (🛒, 🤖, 🔄) for visual breaks.
           </li>
@@ -433,6 +540,7 @@ export default function Usage({ params }: IUsage) {
         </span>
         <span 
           ref={ref => addToRefs(ref, textRefs)}
+          className={`${mobileRangeFull || tabletRangeFull ? 'text-md tracking-widest text-center mt-16' : ''}`}
         >
           Would you like me to refine any section further?
         </span>

@@ -11,7 +11,7 @@ VariantProps<typeof LinkWithIconVariants>{
 
 const LinkWithIconVariants = tv({
   base: [
-    'min-w-52 flex items-center gap-3 px-1.5 relative overflow-hidden',
+    'flex items-center gap-3 px-1.5 relative overflow-hidden',
     'border border-transparent rounded-2xl shadow-lg hover:shadow-lg',
     'transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]',
     'transform hover:scale-105 hover:-translate-y-1',
@@ -33,19 +33,26 @@ const LinkWithIconVariants = tv({
       tel: 'bg-sky-400/20 hover:bg-sky-300/70 hover:shadow-sky-400/30',
       dis: 'bg-violet-400/20 hover:bg-violet-300/70 hover:shadow-violet-400/30',
       dft: 'w-fit justify-evenly bg-transparent hover:shadow-white/20'
+    },
+    size: {
+      sm: 'min-w-52',
+      md: 'min-w-66',
+      xl: 'min-w-86',
+      mob: 'min-w-full'
     }
   },
   defaultVariants: {
-    colors: 'dft'
+    colors: 'dft',
+    size: 'sm'
   }
 })
 
-export function LinkWithIcon({ href, children, colors, ...props }: ILinkWithIcon) {
+export function LinkWithIcon({ href, children, colors, size, ...props }: ILinkWithIcon) {
   return (
     <Link
       {...props}
       href={href}
-      className={LinkWithIconVariants({ colors })}
+      className={LinkWithIconVariants({ colors, size })}
     >
       {children}
     </Link>
