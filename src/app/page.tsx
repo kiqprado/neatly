@@ -6,15 +6,13 @@ import Image from 'next/image'
 
 import { useMediaRange } from './utils/breakpoint-hook'
 
+import { LinkBtn } from './elements/link-btn'
 import { LinkWithIcon } from './elements/link-with-icon'
 
 import { Footer } from './components/footer'
 
 export default function Home() {
   //const textRef = useRef(null)
-
-  const [ chatWebModal, setChatWebModal ] = useState(false)
-
   //Query's
   const isMobileSM = useMediaRange('mobileSM')
   const isMobileMD = useMediaRange('mobileMD')
@@ -25,10 +23,6 @@ export default function Home() {
   const mobileRangeFull = isMobileSM || isMobileMD || isMobileLG
   const tabletRangeFull = isTabletMD || isTabletLG
 
-  function ToggleChatWebModal() {
-    setChatWebModal(prev => !prev)
-  }
- 
   /*useEffect(() => {
     const elements = textRef.current.children
 
@@ -48,26 +42,26 @@ export default function Home() {
           width={46}
           height={46}
         />
-        <h2 className='text-center text-2xl tracking-widest hover:text-zinc-50 transition-all duration-300 ease-in-out'>Neatly</h2>
+        <h2 className='text-center text-2xl tracking-widest hover:text-zinc-50 transition-all duration-300 ease-in-out'>Neatl<span className='leading-none hover:text-emerald-300 transition-all duration-700 ease-in-out cursor-grab'>y</span></h2>
       </header>
-      <main className={`flex-1 flex flex-col ${mobileRangeFull ? 'gap-16' : 'gap-12'} items-center`}>
-        <div className={`flex flex-col gap-3 items-center ${mobileRangeFull ? 'mt-30' : 'mt-36'}`}>
+      <main className={`flex-1 flex flex-col gap-12 items-center`}>
+        <div className={`flex flex-col gap-3 items-center ${mobileRangeFull ? 'mt-26' : 'mt-36'}`}>
           <h3 className={`${mobileRangeFull ? 'hidden' : 'block'} text-xl tracking-wide`}>Tame the chaos in seconds</h3>
           <p 
             className={`text-center ${mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md'}`}
           >
             Neatly’s AI bot sorts your to-dos, reminders, and errands—so you don’t have to. Fewer clicks, zero mess.
           </p>
-          <h2 className='text-2xl tracking-widest text-center mb-6'>Tap. Sort. Done.</h2>
-          <LinkWithIcon
+          <h2 className='text-2xl tracking-widest text-center mb-4'>Tap. Sort. Done.</h2>
+          <LinkBtn
             href={'/pages/usage'}
           >
-            Learn how to use
-          </LinkWithIcon>
+            <span className={`${mobileRangeFull || tabletRangeFull ? 'text-xl' : ''}`}>Learn how to use</span>
+          </LinkBtn>
         </div>
         
         <div 
-          className={`flex ${mobileRangeFull || tabletRangeFull ? 'flex-col' : 'flex-row'} gap-3 justify-center`}
+          className={`flex ${mobileRangeFull || tabletRangeFull ? 'w-full flex-col px-6' : 'flex-row'} gap-3 justify-center`}
         >
           <LinkWithIcon
             href={'#'}
@@ -76,10 +70,10 @@ export default function Home() {
             <Image
               src={'/whatsapp.png'}
               alt=""
-              width={66}
-              height={66}
+              width={mobileRangeFull  || tabletRangeFull ? 96 : 66}
+              height={mobileRangeFull  || tabletRangeFull ? 96 : 66}
             />
-            <span className={`${mobileRangeFull ? 'text-lg' : 'text-md'}`}>WhatsApp Bot</span>
+            <span className={`${mobileRangeFull ? 'text-xl' : 'text-md'}`}>WhatsApp Bot</span>
           </LinkWithIcon>
   
           <LinkWithIcon
@@ -89,10 +83,10 @@ export default function Home() {
             <Image
               src={'/telegram.png'}
               alt=""
-              width={66}
-              height={66}
+              width={mobileRangeFull  || tabletRangeFull ? 96 : 66}
+              height={mobileRangeFull  || tabletRangeFull ? 96 : 66}
             />
-            <span className={`${mobileRangeFull ? 'text-lg' : 'text-md'}`}>Telegram Bot</span>
+            <span className={`${mobileRangeFull ? 'text-xl' : 'text-md'}`}>WhatsApp Bot</span>
           </LinkWithIcon>
 
           <LinkWithIcon
@@ -102,38 +96,26 @@ export default function Home() {
             <Image
               src={'/discord.png'}
               alt=""
-              width={66}
-              height={66}
+              width={mobileRangeFull  || tabletRangeFull ? 96 : 66}
+              height={mobileRangeFull  || tabletRangeFull ? 96 : 66}
             />
-            <span className={`${mobileRangeFull ? 'text-lg' : 'text-md'}`}>Discord Bot</span>
+            <span className={`${mobileRangeFull ? 'text-xl' : 'text-md'}`}>WhatsApp Bot</span>
           </LinkWithIcon>
         </div>
         
-        <div className='flex justify-center'>
+        <div className={`flex justify-center ${mobileRangeFull || tabletRangeFull ? 'mb-16' : ''}`}>
           <LinkWithIcon 
             href={`/pages/webchat`} 
           >
             <Image
               src={'/logo-dark-mode.png'}
               alt='App logo Image'
-              width={46}
-              height={46}
+              width={mobileRangeFull  || tabletRangeFull ? 68 : 46}
+              height={mobileRangeFull  || tabletRangeFull ? 68 : 46}
             />
-            <span>Try it Now!</span>
+            <span className={`${mobileRangeFull ? 'text-xl' : 'text-md'}`}>Try it now.</span>
           </LinkWithIcon>
         </div>
-
-        { chatWebModal && (
-          <div className='fixed inset-0 flex bg-neutral-950/50'>
-            <div className='min-w-96 h-126 m-auto bg-neutral-900'>
-              <button
-                onClick={ToggleChatWebModal}
-              >
-                X
-              </button>
-            </div>
-          </div>
-        )}
       </main>
       <Footer/>
     </div>

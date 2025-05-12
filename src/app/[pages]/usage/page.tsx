@@ -23,7 +23,7 @@ export default function Usage({ params }: IUsage) {
   const titleRefs = useRef<(HTMLHeadingElement | null)[]>([])
   const textRefs = useRef<(HTMLParagraphElement | HTMLLIElement | null)[]>([])
 
-  //Query's
+//Query's
 const isMobileSM = useMediaRange('mobileSM')
 const isMobileMD = useMediaRange('mobileMD')
 const isMobileLG = useMediaRange('mobileLG')

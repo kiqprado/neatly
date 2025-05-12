@@ -11,7 +11,7 @@ interface ILinkBtn extends Omit<LinkProps, 'href'>,
 
 const LinkBtnVariants = tv({
   base: [
-    'px-6 py-1.5 text-center tracking-wide relative overflow-hidden',
+    'px-6 py-1.5 text-center tracking-wider relative overflow-hidden',
     'border border-transparent rounded-2xl shadow-lg hover:shadow-lg',
     'transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]',
     'transform hover:scale-105 hover:-translate-y-1',
