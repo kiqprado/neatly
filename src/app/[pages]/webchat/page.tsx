@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 import { useMediaRange } from '@/app/utils/breakpoint-hook'
 
-import botResponse from '@/app/utils/bot-response-example'
+import { FetchMessageOnChat } from '@/app/utils/fetch-bot-responses'
 
 import { LinkIcon } from '@/app/elements/link-icon'
 
@@ -14,8 +14,13 @@ interface IWebChatPage {
   params: string
 }
 
+type Message = {
+  sender: 'user' | 'bot'
+  content: string
+}
+
 export default function WebChatPage({ params }: IWebChatPage) {
-  const [ messages, setMessages ] = useState<string[]>([])
+  const [ messages, setMessages ] = useState<Message[]>([])
   const [ textValue, setTextValue ] = useState('')
 
   //Query's
@@ -28,19 +33,25 @@ export default function WebChatPage({ params }: IWebChatPage) {
   const mobileRangeFull = isMobileSM || isMobileMD || isMobileLG
   const tabletRangeFull = isTabletMD || isTabletLG
 
-  function HandleMessageChat() {
-    if(!textValue.trim()) return
+  async function HandleMessageChat() {
+  if (!textValue.trim()) return
 
-    setMessages(prev => [...prev, textValue])
+  const userMessage: Message = { sender: 'user', content: textValue}
+  setMessages(prev => [...prev, userMessage])
 
+  try {
+    const botReply = await FetchMessageOnChat(textValue, 'pt')
+    const botMessage: Message = {
+      sender: 'bot',
+      content: botReply?.content || 'Erro ao gerar resposta'
+    }
+    setMessages(prev => [...prev, botMessage])
     setTextValue('')
-
-    const randomResponse =  botResponse[Math.floor(Math.random() * botResponse.length)]
-
-    setTimeout(() => {
-      setMessages(prev => [...prev, randomResponse])
-    }, 1000)
+  } catch (err) {
+    console.error(err)
   }
+}
+
   
   return (
     <div className='h-screen inset-0 flex bg-neutral-950/50'>
@@ -59,13 +70,22 @@ export default function WebChatPage({ params }: IWebChatPage) {
           className='h-full flex flex-col bg-center bg-no-repeat bg-cover border brightness-75 rounded-md'
           style={{ backgroundImage: "url('/bg-chat.jpg')"}}
         >
-          <div className='flex-1 border border-red-400'>
+          <div className='py-1.5 flex-1 flex flex-col gap-3 text-zinc-50'>
             {messages.map((message, index) => (
-              <span
+              <div
                 key={index}
+                className={`flex px-1.5 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                {message}
-              </span>
+                <span
+                  className={`max-w-[66%] px-3 rounded-lg shadow-md hover:shadow-lg ${
+                    message.sender === 'user' 
+                      ? 'bg-neutral-800 border border-neutral-700'
+                      : 'bg-zinc-800 border border-zinc-700'
+                  }`}
+                >
+                  {message.content}
+                </span>
+              </div>
             ))}
           </div>
           <div className='flex gap-3 py-1.5 bg-neutral-500/30 rounded-b-md'>
