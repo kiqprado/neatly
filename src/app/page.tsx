@@ -1,7 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-
 import Image from 'next/image'
 
 import { useMediaRange } from './utils/breakpoint-hook'
@@ -77,7 +75,7 @@ export default function Home() {
           </LinkWithIcon>
   
           <LinkWithIcon
-            href={'#'}
+            href={'https://t.me/NeatlyApp_bot'}
             colors='tel'
           >
             <Image
@@ -90,7 +88,7 @@ export default function Home() {
           </LinkWithIcon>
 
           <LinkWithIcon
-            href={'#'}
+            href={'https://discord.com/oauth2/authorize?client_id=1372559159316185209'}
             colors='dis'
           >
             <Image

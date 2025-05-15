@@ -46,6 +46,7 @@ export function LinkWithIcon({ href, children, colors, ...props }: ILinkWithIcon
       {...props}
       href={href}
       className={LinkWithIconVariants({ colors })}
+      target='_blank'
     >
       {children}
     </Link>
