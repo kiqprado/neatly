@@ -11,7 +11,7 @@ VariantProps<typeof LinkIconVariants> {
 
 const LinkIconVariants = tv({
   base: [
-    'absolute top-0 right-0 z-10',
+    'absolute z-10',
     'transition-all duration-200 ease-in-out',
     'hover:scale-110 hover:brightness-125',
     'active:scale-95 active:brightness-75',
@@ -26,20 +26,24 @@ const LinkIconVariants = tv({
         'bg-none text-current',
         
       ]
+    },
+    position: {
+      left: 'top-3 left-1',
+      right: 'top-0 right-0'
     }
   },
   defaultVariants: {
     variant: 'secondary',
-    size: 'md'
+    position: 'right'
   }
 });
 
-export function LinkIcon({ href, children, variant, ...props }: ILinkIcon) {
+export function LinkIcon({ href, children, variant, position, ...props }: ILinkIcon) {
   return (
     <Link
       {...props}
       href={href}
-      className={LinkIconVariants({ variant })}
+      className={LinkIconVariants({ variant, position })}
     >
       {children}
     </Link>

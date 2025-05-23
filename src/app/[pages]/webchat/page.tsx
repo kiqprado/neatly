@@ -4,11 +4,13 @@ import { useState, useRef, useEffect } from 'react'
 
 import Image from 'next/image'
 
+import Link from 'next/link'
+
 import { useMediaRange } from '@/app/utils/breakpoint-hook'
 
 import { FetchMessageOnChat } from '@/app/utils/fetch-bot-responses'
 
-import { LinkIcon } from '@/app/elements/link-icon'
+import { ChevronLeft } from 'lucide-react'
 
 interface IWebChatPage {
   params: string
@@ -91,22 +93,39 @@ export default function WebChatPage({ params, autoScroll = true }: IWebChatPage)
   }, [ messages, autoScroll ])
   
   return (
-    <div className='h-screen inset-0 flex bg-neutral-950/50'>
-      <div className={`m-auto ${mobileRangeFull || tabletRangeFull ? 'w-full h-screen' : 'h-[93%] w-[36%]'} px-3 py-2 relative rounded-md border bg-neutral-900`}>
-        <LinkIcon
-          href={'/'}
-        >
-          <Image
-            src={'/close.svg'}
-            alt='Close Tag Icon'
-            width={26}
-            height={26}
-          />
-        </LinkIcon>
+    <div className='h-[100svh] inset-0 flex bg-neutral-950/50'>
+      <div className={`m-auto ${mobileRangeFull || tabletRangeFull ? 'w-full h-[100svh]' : 'h-[93%] w-[36%]'} rounded-md border bg-neutral-900`}>
         <div 
           className='h-full flex flex-col bg-center bg-no-repeat bg-cover border brightness-75 rounded-md'
           style={{ backgroundImage: "url('/bg-chat.jpg')"}}
         >
+          <div className='w-full px-1.5 py-1.5 flex items-center gap-3  bg-neutral-700/90'>
+            <Link
+              href={'/'}
+            >
+              <ChevronLeft
+                className={`${mobileRangeFull || tabletRangeFull ? 'size-9' : 'size-7'} 
+                  -mr-2 hover:text-zinc-50 hover:brightness-200`}
+              />
+            </Link>
+            <Image
+              src={'/logo-dark-mode.png'}
+              alt='App Logo Profile Pic'
+              width={mobileRangeFull || tabletRangeFull ? 46 : 36}
+              height={16}
+              className='rounded-[50%] border border-zinc-500'
+            />
+            <div 
+              className={`flex flex-col justify-center ${mobileRangeFull || tabletRangeFull ? '' : 'mt-1 leading-3'}`}
+            >
+              <h3 className={`${mobileRangeFull || tabletRangeFull ? 'font-bold tracking-widest' : 'tracking-wider'}
+                brightness-150 hover:brightness-200`}
+              >
+                Neatly
+              </h3>
+              <span className='text-sm brightness-125'>online</span>
+            </div>
+          </div>
           <div 
             className='py-1.5 flex-1 flex flex-col gap-3 overflow-y-hidden text-zinc-50'
             style={{
@@ -138,16 +157,16 @@ export default function WebChatPage({ params, autoScroll = true }: IWebChatPage)
               </div>
             ))}
           </div>
-          <div className='flex gap-3 py-1.5 bg-neutral-500/30 rounded-b-md'>
+          <div className='flex gap-3 p-1.5 bg-neutral-700/90  rounded-b-md'>
             <input 
               type='text'
               value={textValue}
               placeholder='type you message...'
               onChange={(e) => setTextValue(e.target.value)}
-              className='flex-1 px-3 outline-0 placeholder:text-zinc-100'
+              className={`flex-1 px-3 outline-0 ${ mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md' } bg-zinc-900 rounded-2xl placeholder:text-zinc-100`}
             />
             <button 
-              className='min-w-26'
+              className={`min-w-22 ${ mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md'}`}
               onClick={HandleMessageChat}  
             >
               Send
