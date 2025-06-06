@@ -40,7 +40,7 @@ export default function WebChatPage({ params, autoScroll = true }: IWebChatPage)
   const mobileRangeFull = isMobileSM || isMobileMD || isMobileLG
   const tabletRangeFull = isTabletMD || isTabletLG
 
-  async function HandleMessageChat() {
+  async function HandleSendMessageOnChat() {
     if (!textValue.trim()) return
 
     const userMessage: Message = { sender: 'user', content: textValue}
@@ -59,11 +59,18 @@ export default function WebChatPage({ params, autoScroll = true }: IWebChatPage)
     }
   }
 
+  function HandleSendMessageOnChatKeyDown(e?: React.KeyboardEvent<HTMLInputElement>) {
+    if(e.key === 'Enter') {
+      e?.preventDefault()
+      HandleSendMessageOnChat()
+    }
+  }
+
   function ChatViewScroll() {
     messagesViewChatRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
-  function HandleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+  function HandleArrowsKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if( e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       e.preventDefault()
       
@@ -113,7 +120,7 @@ export default function WebChatPage({ params, autoScroll = true }: IWebChatPage)
               alt='App Logo Profile Pic'
               width={mobileRangeFull || tabletRangeFull ? 46 : 36}
               height={16}
-              className='rounded-[50%] border border-zinc-500'
+              className='rounded-[50%] border border-zinc-500 hover:border-zinc-300 transition-all duration-300 ease-in-out'
             />
             <div 
               className={`flex flex-col justify-center ${mobileRangeFull || tabletRangeFull ? '' : 'mt-1 leading-3'}`}
@@ -123,7 +130,7 @@ export default function WebChatPage({ params, autoScroll = true }: IWebChatPage)
               >
                 Neatly
               </h3>
-              <span className='text-sm brightness-125'>online</span>
+              <span className='text-sm brightness-125 text-sky-500 hover:text-sky-400 transition-all duration-300 ease-in-out'>online</span>
             </div>
           </div>
           <div 
@@ -134,7 +141,7 @@ export default function WebChatPage({ params, autoScroll = true }: IWebChatPage)
               overscrollBehavior: 'contain',
             }}
             tabIndex={0}
-            onKeyDown={HandleKeyDown}
+            onKeyDown={HandleArrowsKeyDown}
             onMouseUp={HandleMouseUp}
             onMouseDown={HandleMouseDown}
             onMouseLeave={HandleMouseUp}
@@ -163,11 +170,12 @@ export default function WebChatPage({ params, autoScroll = true }: IWebChatPage)
               value={textValue}
               placeholder='type you message...'
               onChange={(e) => setTextValue(e.target.value)}
-              className={`flex-1 px-3 outline-0 ${ mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md' } bg-zinc-900 rounded-2xl placeholder:text-zinc-100`}
+              onKeyDown={HandleSendMessageOnChatKeyDown}
+              className={`flex-1 px-3 outline-0 ${ mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md py-1' } bg-zinc-900 rounded-2xl placeholder:text-zinc-100`}
             />
             <button 
               className={`min-w-22 ${ mobileRangeFull || tabletRangeFull ? 'text-lg' : 'text-md'}`}
-              onClick={HandleMessageChat}  
+              onClick={HandleSendMessageOnChat}  
             >
               Send
             </button>
