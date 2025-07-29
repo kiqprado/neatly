@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, use } from 'react'
 
 import Link from 'next/link'
 
@@ -14,10 +14,15 @@ import { LinkBtn } from '@/app/elements/link-btn'
 gsap.registerPlugin(ScrollTrigger)
 
 interface IUsage {
-  params: string
+  params: Promise<string>
 }
 
 export default function Usage({ params }: IUsage) {
+  const id = use(params)
+  if(!id) {
+    console.log('Bruuuh')
+  }
+
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const dividersRefs = useRef<(HTMLDivElement | null)[]>([])
   const titleRefs = useRef<(HTMLHeadingElement | null)[]>([])
@@ -241,20 +246,20 @@ const tabletRangeFull = isTabletMD || isTabletLG
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
             >
-              <strong className='mr-3 text-red-500'>//</strong>
+              <strong className='mr-3 text-red-500'>&#47;&#47;</strong>
               Web Version (Try It Now!)
             </h4>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
               className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
             >
-              Visit Neatly's WebChat (no login required).
+              Visit Neatly&apos;s WebChat (no login required).
             </li>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
               className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}  
             >
-              Type or speak your first list (e.g., "Add milk, eggs, and bread to my shopping list").
+              Type or speak your first list (e.g., &quot;Add milk, eggs, and bread to my shopping list&#34;).
             </li>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
@@ -268,14 +273,14 @@ const tabletRangeFull = isTabletMD || isTabletLG
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
             > 
-              <strong className='mr-3 text-red-500'>//</strong>
+              <strong className='mr-3 text-red-500'>&#47;&#47;</strong>
               Mobile/Messaging Apps
             </h4>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
               className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`} 
             >
-              <strong>WhatsApp/Telegram/Discord:</strong> Send "Start" to Neatly's bot.
+              <strong>WhatsApp/Telegram/Discord:</strong> Send &quot;Start&#34; to Neatly&apos;s bot.
             </li>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
@@ -297,7 +302,7 @@ const tabletRangeFull = isTabletMD || isTabletLG
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
             >
-              <strong className='mr-3 text-red-500'>//</strong>
+              <strong className='mr-3 text-red-500'>&#47;&#47;</strong>
               Smart List Creation
             </h4>
             <h5 
@@ -310,13 +315,13 @@ const tabletRangeFull = isTabletMD || isTabletLG
               ref={ref => addToRefs(ref, textRefs)}
               className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
             >
-              "Add pasta, tomatoes, and cheese to my grocery list."
+              &quot;Add pasta, tomatoes, and cheese to my grocery list.&#34;
             </li>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
               className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
             >
-              "Remove eggs and add almond milk instead."
+              &quot;Remove eggs and add almond milk instead.&#34;
             </li>
             <h5 
               ref={ref => addToRefs(ref, textRefs)}
@@ -330,7 +335,7 @@ const tabletRangeFull = isTabletMD || isTabletLG
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
             >
-              <strong className='mr-3 text-red-500'>//</strong>
+              <strong className='mr-3 text-red-500'>&#47;&#47;</strong>
               Cross-Platform Sync
             </h4>
             <h5 
@@ -345,14 +350,14 @@ const tabletRangeFull = isTabletMD || isTabletLG
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
             >
-              <strong className='mr-3 text-red-500'>//</strong>
+              <strong className='mr-3 text-red-500'>&#47;&#47;</strong>
               Reminders & Suggestions
             </h4>
             <h5 
               ref={ref => addToRefs(ref, titleRefs)}
               className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}  
             >
-              "You usually buy bananas on Saturdays—add them now?"
+              &quot;You usually buy bananas on Saturdays—add them now?&#34;
             </h5>
             <h5 
               ref={ref => addToRefs(ref, titleRefs)}
@@ -366,7 +371,7 @@ const tabletRangeFull = isTabletMD || isTabletLG
               ref={ref => addToRefs(ref, titleRefs)}
               className='tracking-wide'
             >
-              <strong className='mr-3 text-red-500'>//</strong>
+              <strong className='mr-3 text-red-500'>&#47;&#47;</strong>
               Shared Lists
             </h4>
             <h5 
@@ -395,13 +400,13 @@ const tabletRangeFull = isTabletMD || isTabletLG
               ref={ref => addToRefs(ref, textRefs)}
               className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}
             >
-              <strong>Voice Commands:</strong> "Neatly, add 'dog food' to my Pets list."
+              <strong>Voice Commands:</strong> &quot;Neatly, add &apos;dog food&#39; to my Pets list.&#34;
             </li>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
               className={`${mobileRangeFull ? 'text-lg text-justify' : 'text-md'}`}  
             >
-              <strong>Shortcuts:</strong> Type "ls" to see all lists, "done [item]" to check off.
+              <strong>Shortcuts:</strong> Type &quot;ls&#34; to see all lists, &quot;done [item]&#34; to check off.
             </li>
             <li 
               ref={ref => addToRefs(ref, textRefs)}
@@ -450,9 +455,9 @@ const tabletRangeFull = isTabletMD || isTabletLG
               className={`${mobileRangeFull ? 'ml-0': 'ml-3'} text-justify`}
             >
               { mobileRangeFull ? (
-                  <span>Suggests alternatives - <br/> ("Out of quinoa? Try couscous!").</span>
+                  <span>Suggests alternatives - <br/> (&quot;Out of quinoa? Try couscous!&#34;).</span>
                 ) : (
-                  <span>Suggests alternatives ("Out of quinoa? Try couscous!").</span>
+                  <span>Suggests alternatives (&quot;Out of quinoa? Try couscous!&#34;).</span>
                 )
               }
               
@@ -515,7 +520,7 @@ const tabletRangeFull = isTabletMD || isTabletLG
             Use <strong>icons</strong> (🛒, 🤖, 🔄) for visual breaks.
           </li>
           <li ref={ref => addToRefs(ref, textRefs)}>
-            Highlight <strong>cross-platform</strong> logos (WhatsApp/Telegram/Discord) near the "Try Now" button.
+            Highlight <strong>cross-platform</strong> logos (WhatsApp/Telegram/Discord) near the &quot;Try Now&#34; button.
           </li>
           <li ref={ref => addToRefs(ref, textRefs)}>
             Add a short GIF/video showing Neatly in action across apps.
@@ -536,7 +541,7 @@ const tabletRangeFull = isTabletMD || isTabletLG
           ref={ref => addToRefs(ref, textRefs)}
           className='tracking-wider text-lg text-center' 
         >
-          Got questions? <br/> Reply "Help" in any chat or visit our FAQ.
+          Got questions? <br/> Reply &quot;Help&#34; in any chat or visit our FAQ.
         </span>
         <span 
           ref={ref => addToRefs(ref, textRefs)}

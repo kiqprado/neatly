@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, use } from 'react'
 
 import Image from 'next/image'
 
@@ -13,8 +13,7 @@ import { FetchMessageOnChat } from '@/app/utils/fetch-bot-responses'
 import { ChevronLeft } from 'lucide-react'
 
 interface IWebChatPage {
-  params: string
-  autoScroll: boolean
+  params: Promise<{ [key: string] : string }>
 }
 
 type Message = {
@@ -22,14 +21,21 @@ type Message = {
   content: string
 }
 
-export default function WebChatPage({ params, autoScroll = true }: IWebChatPage) {
-  const messagesViewChatRef = useRef(null)
+export default function WebChatPage({ params }: IWebChatPage) {
+  const id = use(params)
+
+  const autoScroll: boolean = true 
+
+  const messagesViewChatRef = useRef<HTMLDivElement>(null)
 
   const [ messages, setMessages ] = useState<Message[]>([])
   const [ textValue, setTextValue ] = useState('')
 
   const [ isDragging, setIsDragging ] = useState(false)
 
+  if(!id) {
+    console.log('this chat does not heave an ID Log')
+  }
   //Query's
   const isMobileSM = useMediaRange('mobileSM')
   const isMobileMD = useMediaRange('mobileMD')
@@ -60,7 +66,7 @@ export default function WebChatPage({ params, autoScroll = true }: IWebChatPage)
   }
 
   function HandleSendMessageOnChatKeyDown(e?: React.KeyboardEvent<HTMLInputElement>) {
-    if(e.key === 'Enter') {
+    if(e?.key === 'Enter') {
       e?.preventDefault()
       HandleSendMessageOnChat()
     }
