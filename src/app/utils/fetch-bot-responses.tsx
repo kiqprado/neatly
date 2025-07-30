@@ -5,7 +5,7 @@ interface IMessage {
 
 export async function FetchMessageOnChat(message: string, language: 'pt' | 'en' | 'es' =  'pt'): Promise<IMessage | null> {
   try {
-    const response = await fetch('neatly-api-production.up.railway.app', {
+    const response = await fetch('neatly-api-production.up.railway.app/chatweb', {
       method: 'POST',
       headers:  { 'Content-type': 'application/json'},
       body: JSON.stringify({ content: message, language})
